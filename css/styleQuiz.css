@@ -1,0 +1,147 @@
+/*begin page*/
+h1{
+text-align: center;
+}
+div#ver,div#im
+{text-align: center;
+}
+div#ver2
+{text-align: right;
+}
+
+.buttons{
+   /* background-color: green;*/
+/*   font: italic bold 14px/20px "COMIC SANS MS", serif;
+   border-radius: 4px;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);*/
+            background-color:#ed8223;
+    color:#fff;
+    font-family:'Helvetica Neue',sans-serif;
+    font-size:18px;
+    line-height:30px;
+    border-radius:20px;
+    -webkit-border-radius:20px;
+    -moz-border-radius:20px;
+    border:0;
+    text-shadow:#C17C3A 0 -1px 0;
+    width:120px;
+    height:32px
+}
+button#start{
+
+	background: rgb(202, 60, 60);
+
+	  font-size: 125%;
+	  border-radius: 4px;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+            float:center;
+        }
+
+div#displayTimer{
+color:red;
+font: italic bold 20px/30px "COMIC SANS MS", serif;
+ text-align: right;
+background-color: #b0e0e6;
+
+}
+/*h2#question
+{color:blue;
+}*/
+
+div#image
+{text-align: right;
+}
+button#endQuiz{
+
+	 background: rgb(28, 184, 65); /* this is a green */
+
+	  font-size: 125%;
+	  border-radius: 4px;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+            float:center;
+}
+img#imageSource
+{
+width:250px;
+height:200px;
+}
+div#endButtonStyle
+{text-align: center;
+}
+#animation div {
+    width: 100px;
+    height: 100px;
+    background-color: green;
+    position: relative;
+    -webkit-animation-name: example; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 4s; /* Chrome, Safari, Opera */
+    -webkit-animation-iteration-count: 3; /* Chrome, Safari, Opera */
+    animation-name: example;
+    animation-duration: 4s;
+    animation-iteration-count: 3;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes {
+    0%   {background-color:red; left:0px; top:0px;}
+    25%  {background-color:yellow; left:200px; top:0px;}
+    50%  {background-color:blue; left:200px; top:200px;}
+    75%  {background-color:green; left:0px; top:200px;}
+    100% {background-color:red; left:0px; top:0px;}
+}
+/* Standard syntax */
+@keyframes example {
+    0%   {background-color:red; left:0px; top:0px;}
+    25%  {background-color:yellow; left:200px; top:0px;}
+    50%  {background-color:blue; left:200px; top:200px;}
+    75%  {background-color:green; left:0px; top:200px;}
+    100% {background-color:red; left:0px; top:0px;}
+}
+
+#animate img 
+{
+	position:relative;
+    width:100px;
+    height:100px;
+    animation: test 25s;
+    animation-iteration-count: 10;
+    -moz-animation: test 25s;
+}
+
+@keyframes test
+{
+from {left: 0px;}
+    to {left: 1000px;}
+}
+
+@-moz-keyframes test
+{
+0%   {left:0px; top:0px;}
+25%  {left:200px; top:0px;}
+50%  {left:200px; top:200px;}
+75%  {left:0px; top:200px;}
+100% {left:0px; top:0px;}
+}
+div #title {
+    width: 200px;
+    height: 50px;
+    /*background-color: blue;*/
+    font-weight: bold;
+    font-family:"Comic Sans MS", cursive, sans-serif;
+    font-size: 250%;
+    position: relative;
+    -webkit-animation: mymove 10s infinite; /* Chrome, Safari, Opera */
+    animation: mymove 10s infinite;
+}
+
+/* Chrome, Safari, Opera */
+#title {-webkit-animation-timing-function: linear;}
+/* Chrome, Safari, Opera */
+@-webkit-keyframes mymove {
+    from {left: 0px;}
+    to {left: 1000px;}
+}
+
+li#list {
+    display: inline;
+}
