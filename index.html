@@ -1,32 +1,33 @@
 <!DOCTYPE html>
 <html>
   <head>
-<link rel="stylesheet" type="text/css" href="../QuizMariana/css/styleQuiz.css">
+<link rel="stylesheet" type="text/css" href="../QuizMariana/css/styleQuiz.css"> <!--LASA 2 TAB-URI INAINTE-->
   </head>
 
+  <!--FOLOSESTE DENUMIRI SUGESTIVE PENTRU ID-URI SI CLASS-URI: ver, animate, start, ...-->
   <body >
 	 <h1>Quiz-Intrebari generale din Java</h1>
 	 <p>Acesta este un simplu quiz pentru a va testa cunostintele de baza ale limbajului Java.Succes </p>
-	  <p>Selectati butonul "Start" pentru a incepe quiz-ul!</p>
-	   <div id="ver">
+	  <p>Selectati butonul "Start" pentru a incepe quiz-ul!</p> 
+	   <div id="ver"> <!--POTI FOLOSI TAB-URI IN LOC DE SPATIU-->
 	     <br>
 	     <br>
-	       <button type="button"   id="start"  onclick="getPage()">Start quiz
+	       <button type="button"   id="start"  onclick="getPage()">Start quiz <!--</button> SE INCHIDE PE RANDUL ASTA; AI GRIJA LA SPATIILE DE DINAINTE DE id SI onclick-->
 	       </button>
 	     <br>
 	     <br>
 	   </div>
 
 	   <div id="animate">
-	      <img src="../QuizMariana/images/java.jpg"  style="width:304px;height:228px;">
+	      <img src="../QuizMariana/images/java.jpg"  style="width:304px;height:228px;"> <!--PATH-UL NU ESTE CORECT, DACA SE SCHIMBA NUMELE FOLDER-ULUI NU MAI MERGE. POTI FOLOSI: images/java.jpg-->
 	  </div>
 	  <!-- <div id="animate"><img src="../QuizMariana/images/java.jpg"> </div>
 	   -->
 
 	  <script>
-		function getPage()
+		function getPage() /*------------------------------NUMELE FUNCTIEI NU ESTE SUGESTIV---------------------*/
 		{
-			window.location.href = "../QuizMariana/html/quiz.html";
+			window.location.href = "../QuizMariana/html/quiz.html"; /*-----------------------------PATH-UL NU ESTE CORECT--------------------------*/
 		}
 	  </script>
 </body>

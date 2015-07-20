@@ -78,30 +78,30 @@ var remainQuestion= 0;
 var id;
 var questionCounter= 0;
 var type;
-displayQuestion();
+displayQuestion(); /*-------------------------APELURILE FUNCTIILE SE PUN DUPA DEFINIREA VARIABILELOR; AI GRIJA LA FORMATARE--------------------------*/
 
  displayListOfQuestions();
 var finalResult = 0;
 
 
 //endButton -what happens when click the finalize button
-  $('#endQuiz').on('click',function(e)
+  $('#endQuiz').on('click',function(e) /*-------------------------STERGE SPATIUL DE DINAINTE DE {--------------------------*/
 
   {
-     choose();
-      verificare();
+     choose(); /*-------------------------NUMELE FUNCTIEI NU ESTE SUGESTIV--------------------------*/
+      verificare(); /*-------------------------NUMELE FUNCTIEI NU ESTE SUGESTIV--------------------------*/
       count=0;
       if (remainQuestion > 0 )
-             var r = confirm("Atentie!Nu ati raspuns la"+ remainQuestion+"intrebari");
+             var r = confirm("Atentie!Nu ati raspuns la"+ remainQuestion+"intrebari"); /*-------------------------PREA MULTE TAB-URI--------------------------*/ 
 
-      if( r == true || remainQuestion ==0)
+      if( r == true || remainQuestion ==0) /*-------------------------FOLOSESTE UN NUME MAI SUGESTIV PENTRU r--------------------------*/
          {   choose();
              var backtoFirstPage = confirm("Nota obtinuta este :"+ displayScore()+".Iesiti din quiz?");
              if (backtoFirstPage == true)
                   window.location.href="../index.html";
-             else
+             else 
                 // window.location.href="../html/quiz.html";
-           $("#test").html(displayScore());
+           $("#test").html(displayScore()); /*-------------------------NUMELE test NU ESTE SUGESTIV--------------------------*/
          }
   });
 
@@ -121,11 +121,11 @@ var finalResult = 0;
 
 
 // Click handler for the 'prev' button
-   $('#previous').on('click', function (e) 
+   $('#previous').on('click', function (e) /*-------------------------FOLOSESTE UN SINGUR STIL DE A PUNE {}: SAU PE RAND NOU, SAU PE ACELASI RAND CU 					INSTRUCTIUNEA--------------------------*/
    {
        e.preventDefault();
       
-       if(quiz.is(':animated')) {
+       if(quiz.is(':animated')) { /*-------------------------FOLOSESTE UN SINGUR STIL DE A PUNE {}: SAU PE RAND NOU, SAU PE ACELASI RAND CU 					INSTRUCTIUNEA--------------------------*/
            return false;
                }
       choose();
@@ -163,24 +163,25 @@ var finalResult = 0;
 
 function createQuestion(index)
   {
-    var qElement = $('<div>',{
+    var qElement = $('<div>',{ /*--------------------------FOLOSESTE attr-------------------------------*/
           id:'question'
         });
    
-    var header =$('<h2 id="question">Intrebarea' + (+index+1)+':<h2>');
+    var header =$('<h2 id="question">Intrebarea' + (+index+1)+':<h2>'); /*--------------------------LASA SPATII INAINTE SI DUPA index-------------------------------*/
       qElement.append(header);
 
-    var question =$('<p>').append(questions[index].question);
+	  /*--------------------------AI GRIJA LA FORMATARE: SPATII, TAB-URI-------------------------------*/
+    var question =$('<p>').append(questions[index].question); 
    qElement.append(question);
-      if (questions[index].choice=="multiple")
+      if (questions[index].choice=="multiple") /*--------------------------LASA SPATII INAINTE SI DUPA ==-------------------------------*/
         {
               id="chkBox";
               type="checkbox";
               var checkButtons = createCheckButtons(index);
-              qElement.append(checkButtons);
-
+              qElement.append(checkButtons); /*--------------------------PREA MULTE RANDURI LIBERE-------------------------------*/
+			
         }
-      else
+      else /*--------------------------{} SA FIE SUB if SI else-------------------------------*/
        {
               id="radioB";
               type="radio";
@@ -197,12 +198,12 @@ function createQuestion(index)
     {
         var radioList=$('<ul>');
         var item;
-        var input='';
+        var input=''; /*--------------------------LASA UN RAND LIBER-------------------------------*/
         for(var i =0;i<questions[index].choices.length;i++)
-          {
-
+          {/*--------------------------STERGE RANDUL LIBER-------------------------------*/
+			  
               item=$('<li>');
-              input='<input id="radioB'+i+'" type="radio" name ="answer" value='+ i +'/>';
+              input='<input id="radioB'+i+'" type="radio" name ="answer" value='+ i +'/>'; /*--------------------------LASA SPATII LIBERE DUPA +-------------------------------*/
               input+=questions[index].choices[i];
               item.append(input);
               radioList.append(item);
@@ -212,9 +213,10 @@ function createQuestion(index)
     }
 
 //hold what the user selects
-  function choose()
+  function choose() /*--------------------------NUMELE FUNCTIEI NU ESTE SUGESTIV; AI GRIJA LA FORMATARE-------------------------------*/
 
     {
+	  /*--------------------------DE CE AI NEVOIE DE FOR? NU RETII DOAR RASPUNSURILE LA INTREBAREA CURENTA?-------------------------------*/
       for(var i =0;i<questions[questionCounter].selections.length; i++)
        {
                
@@ -233,15 +235,15 @@ function createQuestion(index)
   {
         var checkList=$('<ul>');
         var item;
-        var input ='';
+        var input =''; /*--------------------------LASA UN RAND LIBER-------------------------------*/
         for(var i =0;i<questions[index].choices.length;i++)
         {
               item =$('<li >');
-              input='<input id="chkBox'+i+'" type="checkbox" name ="answer" value='+ i +'/>';
+              input='<input id="chkBox'+i+'" type="checkbox" name ="answer" value='+ i +'/>'; /*--------------------------LASA SPATII INAINTE SI DUPA i SI  += -------------------------------*/
               input+=questions[index].choices[i];
               item.append(input);
               checkList.append(item);
-
+			  /*--------------------------PREA MULTE RANDURI LIBERE-------------------------------*/
         }
 
     return checkList;
@@ -262,7 +264,7 @@ function createQuestion(index)
               for(var i=0;i<5;i++)
                   if(questions[questionCounter].selections[i]== 0)
                           $("#"+id+i).attr('checked', true); 
-             if(questionCounter==9)
+             if(questionCounter==9) /*--------------------------FOLOSESTE questions.length-------------------------------*/
               {$('#next').hide();}
 
              if(questionCounter == 1){
@@ -279,10 +281,10 @@ function createQuestion(index)
               }
   }
 
-  function displayScore()
+  function displayScore() /*--------------------------AI GRIJA LA FORMATARE-------------------------------*/
    {
              
-          var score=$('<p>',{id:'question'});
+          var score=$('<p>',{id:'question'}); /*--------------------------FOLOSESTE attr-------------------------------*/
 
           var finalResult=0;
 
@@ -299,10 +301,10 @@ function createQuestion(index)
          return finalResult; 
    }
 
+/*--------------------------CE SE VERIFICA IN FUNCTIA ASTA?-------------------------------*/
+function verificare() /*--------------------------NUMELE FUNCTIEI NU ESTE SUGESTIV; AI GRIJA LA FORMATARE-------------------------------*/
 
-function verificare()
-
-   {  
+   { 
         remainQuestion=0;
          for(var i =0;i<questions.length; i++)
         {    ok=false;
@@ -319,13 +321,14 @@ function verificare()
               remainQuestion++;
         }
     }
+/*--------------------------VARIABILELE SE DEFINESC LA INCEPUTUL FISIERULUI-------------------------------*/
 var count = 900;
 var counter = setInterval(displayTimer, 1000);
 
   function displayTimer()
     {
         count = count - 1;
-       if (count == -1) 
+       if (count == -1) /*--------------------------AI GRIJA LA FORMATARE-------------------------------*/
            { clearInterval(counter);
 
             return;}
@@ -336,6 +339,7 @@ var counter = setInterval(displayTimer, 1000);
         {
         	$('#displayTimer').html=("Testul s-a terminat!");
         }
+		/*--------------------------POTI REDUCE NUAMRUL DE IF-URI, VERIFICAND INTR-O CONDITIE DOAR DACA minutes <= 9, IAR IN A DOUA CONDITIE DACA seconds <= 9 -------------------------------*/
         if(minutes <= 9 && seconds<=9)
              $("#time").html('0'+ minutes + " : " + '0'+seconds); 
         if( minutes <= 9 && seconds>9)
@@ -348,7 +352,7 @@ var counter = setInterval(displayTimer, 1000);
      }
 
   
-   function displayListOfQuestions()
+   function displayListOfQuestions() /*--------------------------AI GRIJA LA FORMATARE-------------------------------*/
   {
   	 //$('#listOfQuestions').html("");
   

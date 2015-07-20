@@ -1,4 +1,10 @@
 /*begin page*/
+/*------------------------AI GRIJA LA FORMATARE: STERGE COMENTARIILE CARE NU SUNT NECESARE, FOLOSESTE TAB-URI------------------------------------*/
+/*------------------------{ SE PUNE SUB ELEMENT SI SE LASA UN TAB INAINTE DE PROPRIETATE
+h1
+{
+	text-align: center;
+}------------------------------------*/
 h1{
 text-align: center;
 }
