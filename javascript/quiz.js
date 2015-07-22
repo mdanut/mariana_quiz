@@ -73,7 +73,8 @@
     points: [1,0,0,0,0],
    selections:[-1,-1,-1,-1,-1]
   }];
- var quiz = $('#quiz');
+
+var quiz = $('#quiz');
 var remainQuestion= 0;
 var id;
 var questionCounter= 0;
@@ -81,109 +82,117 @@ var type;
 var finalResult = 0;
 var count = 900;
 var counter = setInterval(displayTimer, 1000);
-displayQuestion(); 
- displayListOfQuestions();
 
-  $('#endQuiz').on('click',function(e) 
-  {
-     userOptionsSelected();
-displayNumberOfQuestionsUnchecked();
-      count=0;
-      if (remainQuestion > 0 )
-             var optionSelected = confirm("Atentie!Nu ati raspuns la"+ remainQuestion + "intrebari");
-      if( optionSelected == true || remainQuestion ==0) 
-         {   userOptionsSelected();
-             var backtoFirstPage = confirm("Nota obtinuta este :"+ displayScore()+".Iesiti din quiz?");
-             if (backtoFirstPage == true)
-                  window.location.href="../index.html";
-             else 
-           $("#test").html(displayScore()); 
-         }
-  });
+displayQuestion(); 
+displayListOfQuestions();
+
+$('#endQuiz').on('click',function(e) 
+{
+  userOptionsSelected();
+  displayNumberOfQuestionsUnchecked();
+  
+  count=0;
+  if (remainQuestion > 0 )
+      var optionSelected = confirm("Atentie!Nu ati raspuns la"+ remainQuestion + "intrebari");
+  
+  if( optionSelected == true || remainQuestion ==0) 
+  {   
+    userOptionsSelected();
+    var backtoFirstPage = confirm("Nota obtinuta este :"+ displayScore()+".Iesiti din quiz?");
+    
+    if (backtoFirstPage == true)
+      window.location.href="../index.html";
+    else 
+      $("#test").html(displayScore()); 
+    }
+});
 
 // Click handler for the 'next' button
-  $('#next').on('click', function (e) 
-  { e.preventDefault(); 
+$('#next').on('click', function (e) 
+{ e.preventDefault(); 
             //Suspend click listener during fade animation
-            if(quiz.is(':animated')) {        
-              return false;
-            }
-             userOptionsSelected();                // If no user selection, progress is stopped
-              questionCounter++;
-              displayQuestion(); 
-    });
+   if(quiz.is(':animated'))
+    {        
+         return false;
+    }
+   userOptionsSelected();                // If no user selection, progress is stopped
+   questionCounter++;
+   displayQuestion(); 
+});
 
 // Click handler for the 'prev' button
-   $('#previous').on('click', function (e) 
-   { e.preventDefault();
-      
-       if(quiz.is(':animated')) 
-        {   return false;
-        }
-      userOptionsSelected();
-      questionCounter--;
-      displayQuestion();
-    });
+$('#previous').on('click', function (e) 
+{ e.preventDefault();
+  if(quiz.is(':animated')) 
+     {   return false;
+     }
+  userOptionsSelected();
+  questionCounter--;
+  displayQuestion();
+});
 
   // Click handler for the 'Start Over' button
-  $('#start').on('click', function (e) 
-   {
-       e.preventDefault();
+$('#start').on('click', function (e) 
+{
+  e.preventDefault();
 
-       if(quiz.is(':animated')) {
-         return false;
-          }
-       questionCounter = 0;
-       displayQuestion();
-       $('#start').hide();
-  });
+  if(quiz.is(':animated')) 
+  {
+       return false;
+  }
+  questionCounter = 0;
+  displayQuestion();
+  $('#start').hide();
+});
 
   // Animates buttons on hover
-  $('.buttons').on('click', function (e) 
-  {e.preventDefault();
+$('.buttons').on('click', function (e) 
+{   e.preventDefault();
 		$('#next').show();
-	    $('#previous').show();
-      userOptionsSelected();
-		 questionCounter=$(this).attr('id');
+	  $('#previous').show();
+    userOptionsSelected();
+		questionCounter = $(this).attr('id');
 		if (questionCounter == 0)
-		    	 $('#previous').hide();
-	    if(questionCounter == 9)
-                $('#next').hide();
-	  displayQuestion();
+		   $('#previous').hide();
 
-  });
+	  if(questionCounter == 9)
+       $('#next').hide();
+
+	  displayQuestion();
+  
+});
 
 function createQuestion(index)
   {
     var qElement=$('<div>').attr('id','question');
     var header =$('<h2 id="question">Intrebarea' + (+ index + 1)+':<h2>'); 
-      qElement.append(header);
+    qElement.append(header);
     var question =$('<p>').append(questions[index].question); 
-   qElement.append(question);
-      if (questions[index].choice == "multiple") 
-        {
-              id="chkBox";
-              type="checkbox";
-              var checkButtons = createCheckButtons(index);
-              qElement.append(checkButtons); 
-            }
-      else 
+    qElement.append(question);
+    if (questions[index].choice == "multiple") 
+      {
+           id="chkBox";
+           type="checkbox";
+           var checkButtons = createCheckButtons(index);
+           qElement.append(checkButtons); 
+      }
+    else 
        {
-              id="radioB";
-              type="radio";
-              var radioButtons=createRadios(index);
-              qElement.append(radioButtons);
+           id="radioB";
+           type="radio";
+           var radioButtons=createRadios(index);
+           qElement.append(radioButtons);
          }
-  return qElement;
+    return qElement;
   }
 
-  function createRadios(index)
-    {
-        var radioList=$('<ul>');
-        var item;
-        var input='';
+function createRadios(index)
+ {
+    var radioList=$('<ul>');
+    var item;
+    var input='';
 
-       for(var i =0;i<questions[index].choices.length;i++)
+    for(var i =0;i<questions[index].choices.length;i++)
           {
               item=$('<li>');
               input='<input id="radioB'+ i + '" type="radio" name ="answer" value=' + i +'/>'; 
@@ -192,31 +201,31 @@ function createQuestion(index)
               radioList.append(item);
           }
 
-      return radioList;
-    }
+    return radioList;
+ }
 
 //hold what the user selects
-  function userOptionsSelected()
-    {
-      for(var i =0;i<questions[questionCounter].selections.length; i++)
+function userOptionsSelected()
+  {
+   for(var i =0;i<questions[questionCounter].selections.length; i++)
        {
-              if( $("#"+id+i).is(":checked"))
+            if( $("#"+ id + i).is(":checked"))
                      questions[questionCounter].selections[i]=0;
-              else
-                  if(questions[questionCounter].selections[i]==0 && $("#"+id+i).attr('checked', false))
+            else
+                if(questions[questionCounter].selections[i] == 0 && $("#"+ id + i).attr('checked', false))
                     {
                       questions[questionCounter].selections[i]=-1;
                     }
        }
 
-    }
+ }
   
  function createCheckButtons(index)
   {
-        var checkList=$('<ul>');
-        var item;
-        var input ='';
-        for(var i =0;i<questions[index].choices.length;i++)
+     var checkList=$('<ul>');
+     var item;
+     var input ='';
+     for(var i =0;i<questions[index].choices.length;i++)
         {
               item =$('<li >');
               input ='<input id="chkBox' + i +'" type="checkbox" name ="answer" value='+ i +'/>';
@@ -228,109 +237,109 @@ function createQuestion(index)
   }
 
 
-  function displayQuestion()
+function displayQuestion()
   {
   	quiz.html("");
-  	 
-          $('#question').remove();
-          if(questionCounter < questions.length)
+    $('#question').remove();
+    if(questionCounter < questions.length)
           {
              var nextQuestion = createQuestion(questionCounter);
              quiz.append(nextQuestion).fadeIn();
+             for(var i=0 ; i<5 ; i++)
+                   if(questions[questionCounter].selections[i] == 0)
+                         $("#"+id+i).attr('checked', true); 
 
-              for(var i=0 ; i<5 ; i++)
-                  if(questions[questionCounter].selections[i] == 0)
-                          $("#"+id+i).attr('checked', true); 
              if(questionCounter == 9)
-              {$('#next').hide();}
+                 {$('#next').hide();}
 
              if(questionCounter == 1){
-                 $('#previous').show();
-             } else if(questionCounter == 0){
-                $('#previous').hide();
-                $('#next').show();
-             }
-         }else {
-               $("#test").html(displayScore());
-                $('#next').hide();
-                $('#previous').hide();
-                $('#start').show();
-              }
+                 $('#previous').show();}
+              
+            else 
+               if(questionCounter == 0)
+                 {
+                   $('#previous').hide();
+                   $('#next').show();
+                 }
+    }else {
+             $("#test").html(displayScore());
+             $('#next').hide();
+             $('#previous').hide();
+             $('#start').show();
+          }
   }
 
-  function displayScore() 
-   {  
-          var score=qElement=$('<p>').attr('id','question');
+function displayScore() 
+ {  
+    var score=qElement=$('<p>').attr('id','question');
+    var finalResult=0;
 
-          var finalResult=0;
-
-          for(var i=0; i<questions.length; i++)
+    for(var i=0; i<questions.length; i++)
           {
-                  var maxValue=Math.max(questions[i].points[0],questions[i].points[1],questions[i].points[2],questions[i].points[3],questions[i].points[4]);
-                  for(var j=0; j < questions[i].selections.length; j++)
-                     if(questions[i].selections[j]==0 && questions[i].points[j]>0 )
-                             finalResult+=questions[i].points[j];
-                     else
-                        if(questions[i].selections[j]==0 && questions[i].points[j]==0)
-                             finalResult-=maxValue;
+            var maxValue = Math.max(questions[i].points[0],questions[i].points[1],questions[i].points[2],questions[i].points[3],questions[i].points[4]);
+            for(var j=0; j < questions[i].selections.length; j++)
+              if(questions[i].selections[j] == 0 && questions[i].points[j] > 0 )
+                        finalResult += questions[i].points[j];
+
+              else
+                if(questions[i].selections[j] == 0 && questions[i].points[j] == 0)
+                      finalResult -= maxValue;
           }
-         return finalResult; 
-   }
+    return finalResult; 
+  }
 
 function displayNumberOfQuestionsUnchecked() 
-   { 
-        remainQuestion=0;
-         for(var i =0;i<questions.length; i++)
-        {    ok=false;
-              j=0;
-              while(j<questions[i].selections.length && ok==false)
-              {
-                   if(questions[i].selections[j] == 0)
-                     ok=true;
-                   j++;
-
-              }
-
-              if (ok==false)
+{ 
+    remainQuestion=0;
+    for(var i =0; i<questions.length; i++)
+      {  ok=false;
+         j=0;
+        while(j<questions[i].selections.length && ok == false)
+          {
+             if(questions[i].selections[j] == 0)
+                 ok=true;
+             j++;
+          }
+        if (ok == false)
               remainQuestion++;
-        }
-    }
+      }
+ }
 
   function displayTimer()
-    {
-        count = count - 1;
-       if (count == -1) 
-           { clearInterval(counter)
-            return;}
-        var seconds = count % 60;
-        var minutes = Math.floor(count / 60);
-         minutes %= 60;
-        if (minutes==0 & seconds==0 || count==0)
+ {
+    count = count - 1;
+    if (count == -1) 
+      { clearInterval(counter)
+      return;}
+    var seconds = count % 60;
+    var minutes = Math.floor(count / 60);
+    minutes %= 60;
+    if (minutes == 0 & seconds == 0 || count == 0)
         {
         	$('#displayTimer').html=("Testul s-a terminat!");
         }
-        if(minutes <= 9 && seconds<=9)
-             $("#time").html('0'+ minutes + " : " + '0'+seconds); 
-        if( minutes <= 9 && seconds>9)
-             $("#time").html('0'+ minutes + " : " +seconds); 
+    if(minutes <= 9 && seconds<=9)
+        $("#time").html('0'+ minutes + " : " + '0'+seconds);
 
-        if( minutes > 9 && seconds<=9)
-              $("#time").html( minutes + " : " +'0'+seconds); 
-         if( minutes > 9 && seconds>9)
-              $("#time").html(minutes + " : " + seconds); 
-     }
+    if( minutes <= 9 && seconds>9)
+        $("#time").html('0'+ minutes + " : " +seconds); 
+
+    if( minutes > 9 && seconds<=9)
+       $("#time").html( minutes + " : " +'0'+seconds); 
+         
+    if( minutes > 9 && seconds>9)
+       $("#time").html(minutes + " : " + seconds); 
+  }
 
   
-   function displayListOfQuestions() 
+ function displayListOfQuestions() 
   {  
-        var output='<ul>';
-        for(var j = 0; j< questions.length ; j++ )
-             { 	
-             	output +='<li id="list" ><button class="buttons" id="' + j + '">Intrebarea'+ ( j + 1) +'</button></li>';
+    var output='<ul>';
+    for(var j = 0; j< questions.length ; j++ )
+      	output +='<li id="list" ><button class="buttons" id="' + j + '">Intrebarea'+ ( j + 1) +'</button></li>';
              
-              }
-             output+="</ul>";
-            $('#listOfQuestions').html(output);
+    output+="</ul>";
+    $('#listOfQuestions').html(output);
   }
 
 

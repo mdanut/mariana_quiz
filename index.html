@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head> 
-
-<link rel="stylesheet" type="text/css" href="css/styleQuiz.css"> 
+		<link rel="stylesheet" type="text/css" href="css/styleQuiz.css"> 
   </head>
 
   <body >
 	 <h1>Quiz-Intrebari generale din Java</h1>
 	 <p>Acesta este un simplu quiz pentru a va testa cunostintele de baza ale limbajului Java.Succes </p>
-	  <p>Selectati butonul "Start" pentru a incepe quiz-ul!</p> 
+	 <p>Selectati butonul "Start" pentru a incepe quiz-ul!</p> 
 	   <div id="ver"> 
+	   	<br>
 	     <br>
-	     <br>
-	       <button type="button"  id="start" onclick="getNextPage()">Start quiz 
+	       <button type="button"  id="start" onclick="openQuizPage()">Start quiz 
 	       </button>
 	     <br>
 	     <br>
@@ -22,7 +21,7 @@
 	      <img src="images/java.jpg"  style="width:304px;height:228px;"> 
 	  </div>
 	  <script>
-		function getNextPage()
+		function openQuizPage()
 		{
 			window.location.href = "html/quiz.html"; 
 		}
