@@ -78,57 +78,49 @@ var remainQuestion= 0;
 var id;
 var questionCounter= 0;
 var type;
-displayQuestion(); /*-------------------------APELURILE FUNCTIILE SE PUN DUPA DEFINIREA VARIABILELOR; AI GRIJA LA FORMATARE--------------------------*/
-
- displayListOfQuestions();
 var finalResult = 0;
+var count = 900;
+var counter = setInterval(displayTimer, 1000);
+displayQuestion(); 
+ displayListOfQuestions();
 
-
-//endButton -what happens when click the finalize button
-  $('#endQuiz').on('click',function(e) /*-------------------------STERGE SPATIUL DE DINAINTE DE {--------------------------*/
-
+  $('#endQuiz').on('click',function(e) 
   {
-     choose(); /*-------------------------NUMELE FUNCTIEI NU ESTE SUGESTIV--------------------------*/
-      verificare(); /*-------------------------NUMELE FUNCTIEI NU ESTE SUGESTIV--------------------------*/
+     userOptionsSelected();
+displayNumberOfQuestionsUnchecked();
       count=0;
       if (remainQuestion > 0 )
-             var r = confirm("Atentie!Nu ati raspuns la"+ remainQuestion+"intrebari"); /*-------------------------PREA MULTE TAB-URI--------------------------*/ 
-
-      if( r == true || remainQuestion ==0) /*-------------------------FOLOSESTE UN NUME MAI SUGESTIV PENTRU r--------------------------*/
-         {   choose();
+             var optionSelected = confirm("Atentie!Nu ati raspuns la"+ remainQuestion + "intrebari");
+      if( optionSelected == true || remainQuestion ==0) 
+         {   userOptionsSelected();
              var backtoFirstPage = confirm("Nota obtinuta este :"+ displayScore()+".Iesiti din quiz?");
              if (backtoFirstPage == true)
                   window.location.href="../index.html";
              else 
-                // window.location.href="../html/quiz.html";
-           $("#test").html(displayScore()); /*-------------------------NUMELE test NU ESTE SUGESTIV--------------------------*/
+           $("#test").html(displayScore()); 
          }
   });
 
 // Click handler for the 'next' button
-  $('#next').on('click', function (e) {
-     e.preventDefault(); 
+  $('#next').on('click', function (e) 
+  { e.preventDefault(); 
             //Suspend click listener during fade animation
             if(quiz.is(':animated')) {        
               return false;
             }
-            choose();
-                // If no user selection, progress is stopped
+             userOptionsSelected();                // If no user selection, progress is stopped
               questionCounter++;
-              displayQuestion();
-           
+              displayQuestion(); 
     });
 
-
 // Click handler for the 'prev' button
-   $('#previous').on('click', function (e) /*-------------------------FOLOSESTE UN SINGUR STIL DE A PUNE {}: SAU PE RAND NOU, SAU PE ACELASI RAND CU 					INSTRUCTIUNEA--------------------------*/
-   {
-       e.preventDefault();
+   $('#previous').on('click', function (e) 
+   { e.preventDefault();
       
-       if(quiz.is(':animated')) { /*-------------------------FOLOSESTE UN SINGUR STIL DE A PUNE {}: SAU PE RAND NOU, SAU PE ACELASI RAND CU 					INSTRUCTIUNEA--------------------------*/
-           return false;
-               }
-      choose();
+       if(quiz.is(':animated')) 
+        {   return false;
+        }
+      userOptionsSelected();
       questionCounter--;
       displayQuestion();
     });
@@ -147,12 +139,12 @@ var finalResult = 0;
   });
 
   // Animates buttons on hover
-  $('.buttons').on('click', function (e) {
-		e.preventDefault();
+  $('.buttons').on('click', function (e) 
+  {e.preventDefault();
 		$('#next').show();
 	    $('#previous').show();
-		choose();
-		questionCounter=$(this).attr('id');
+      userOptionsSelected();
+		 questionCounter=$(this).attr('id');
 		if (questionCounter == 0)
 		    	 $('#previous').hide();
 	    if(questionCounter == 9)
@@ -163,48 +155,39 @@ var finalResult = 0;
 
 function createQuestion(index)
   {
-    var qElement = $('<div>',{ /*--------------------------FOLOSESTE attr-------------------------------*/
-          id:'question'
-        });
-   
-    var header =$('<h2 id="question">Intrebarea' + (+index+1)+':<h2>'); /*--------------------------LASA SPATII INAINTE SI DUPA index-------------------------------*/
+    var qElement=$('<div>').attr('id','question');
+    var header =$('<h2 id="question">Intrebarea' + (+ index + 1)+':<h2>'); 
       qElement.append(header);
-
-	  /*--------------------------AI GRIJA LA FORMATARE: SPATII, TAB-URI-------------------------------*/
     var question =$('<p>').append(questions[index].question); 
    qElement.append(question);
-      if (questions[index].choice=="multiple") /*--------------------------LASA SPATII INAINTE SI DUPA ==-------------------------------*/
+      if (questions[index].choice == "multiple") 
         {
               id="chkBox";
               type="checkbox";
               var checkButtons = createCheckButtons(index);
-              qElement.append(checkButtons); /*--------------------------PREA MULTE RANDURI LIBERE-------------------------------*/
-			
-        }
-      else /*--------------------------{} SA FIE SUB if SI else-------------------------------*/
+              qElement.append(checkButtons); 
+            }
+      else 
        {
               id="radioB";
               type="radio";
               var radioButtons=createRadios(index);
               qElement.append(radioButtons);
          }
-
   return qElement;
-
   }
 
-   
   function createRadios(index)
     {
         var radioList=$('<ul>');
         var item;
-        var input=''; /*--------------------------LASA UN RAND LIBER-------------------------------*/
-        for(var i =0;i<questions[index].choices.length;i++)
-          {/*--------------------------STERGE RANDUL LIBER-------------------------------*/
-			  
+        var input='';
+
+       for(var i =0;i<questions[index].choices.length;i++)
+          {
               item=$('<li>');
-              input='<input id="radioB'+i+'" type="radio" name ="answer" value='+ i +'/>'; /*--------------------------LASA SPATII LIBERE DUPA +-------------------------------*/
-              input+=questions[index].choices[i];
+              input='<input id="radioB'+ i + '" type="radio" name ="answer" value=' + i +'/>'; 
+              input += questions[index].choices[i];
               item.append(input);
               radioList.append(item);
           }
@@ -213,16 +196,13 @@ function createQuestion(index)
     }
 
 //hold what the user selects
-  function choose() /*--------------------------NUMELE FUNCTIEI NU ESTE SUGESTIV; AI GRIJA LA FORMATARE-------------------------------*/
-
+  function userOptionsSelected()
     {
-	  /*--------------------------DE CE AI NEVOIE DE FOR? NU RETII DOAR RASPUNSURILE LA INTREBAREA CURENTA?-------------------------------*/
       for(var i =0;i<questions[questionCounter].selections.length; i++)
        {
-               
               if( $("#"+id+i).is(":checked"))
                      questions[questionCounter].selections[i]=0;
-               else
+              else
                   if(questions[questionCounter].selections[i]==0 && $("#"+id+i).attr('checked', false))
                     {
                       questions[questionCounter].selections[i]=-1;
@@ -235,19 +215,16 @@ function createQuestion(index)
   {
         var checkList=$('<ul>');
         var item;
-        var input =''; /*--------------------------LASA UN RAND LIBER-------------------------------*/
+        var input ='';
         for(var i =0;i<questions[index].choices.length;i++)
         {
               item =$('<li >');
-              input='<input id="chkBox'+i+'" type="checkbox" name ="answer" value='+ i +'/>'; /*--------------------------LASA SPATII INAINTE SI DUPA i SI  += -------------------------------*/
-              input+=questions[index].choices[i];
+              input ='<input id="chkBox' + i +'" type="checkbox" name ="answer" value='+ i +'/>';
+              input += questions[index].choices[i];
               item.append(input);
               checkList.append(item);
-			  /*--------------------------PREA MULTE RANDURI LIBERE-------------------------------*/
         }
-
     return checkList;
-
   }
 
 
@@ -261,10 +238,10 @@ function createQuestion(index)
              var nextQuestion = createQuestion(questionCounter);
              quiz.append(nextQuestion).fadeIn();
 
-              for(var i=0;i<5;i++)
-                  if(questions[questionCounter].selections[i]== 0)
+              for(var i=0 ; i<5 ; i++)
+                  if(questions[questionCounter].selections[i] == 0)
                           $("#"+id+i).attr('checked', true); 
-             if(questionCounter==9) /*--------------------------FOLOSESTE questions.length-------------------------------*/
+             if(questionCounter == 9)
               {$('#next').hide();}
 
              if(questionCounter == 1){
@@ -281,17 +258,16 @@ function createQuestion(index)
               }
   }
 
-  function displayScore() /*--------------------------AI GRIJA LA FORMATARE-------------------------------*/
-   {
-             
-          var score=$('<p>',{id:'question'}); /*--------------------------FOLOSESTE attr-------------------------------*/
+  function displayScore() 
+   {  
+          var score=qElement=$('<p>').attr('id','question');
 
           var finalResult=0;
 
-          for(var i=0;i<questions.length;i++)
+          for(var i=0; i<questions.length; i++)
           {
                   var maxValue=Math.max(questions[i].points[0],questions[i].points[1],questions[i].points[2],questions[i].points[3],questions[i].points[4]);
-                for(var j=0; j < questions[i].selections.length; j++)
+                  for(var j=0; j < questions[i].selections.length; j++)
                      if(questions[i].selections[j]==0 && questions[i].points[j]>0 )
                              finalResult+=questions[i].points[j];
                      else
@@ -301,9 +277,7 @@ function createQuestion(index)
          return finalResult; 
    }
 
-/*--------------------------CE SE VERIFICA IN FUNCTIA ASTA?-------------------------------*/
-function verificare() /*--------------------------NUMELE FUNCTIEI NU ESTE SUGESTIV; AI GRIJA LA FORMATARE-------------------------------*/
-
+function displayNumberOfQuestionsUnchecked() 
    { 
         remainQuestion=0;
          for(var i =0;i<questions.length; i++)
@@ -321,16 +295,12 @@ function verificare() /*--------------------------NUMELE FUNCTIEI NU ESTE SUGEST
               remainQuestion++;
         }
     }
-/*--------------------------VARIABILELE SE DEFINESC LA INCEPUTUL FISIERULUI-------------------------------*/
-var count = 900;
-var counter = setInterval(displayTimer, 1000);
 
   function displayTimer()
     {
         count = count - 1;
-       if (count == -1) /*--------------------------AI GRIJA LA FORMATARE-------------------------------*/
-           { clearInterval(counter);
-
+       if (count == -1) 
+           { clearInterval(counter)
             return;}
         var seconds = count % 60;
         var minutes = Math.floor(count / 60);
@@ -339,7 +309,6 @@ var counter = setInterval(displayTimer, 1000);
         {
         	$('#displayTimer').html=("Testul s-a terminat!");
         }
-		/*--------------------------POTI REDUCE NUAMRUL DE IF-URI, VERIFICAND INTR-O CONDITIE DOAR DACA minutes <= 9, IAR IN A DOUA CONDITIE DACA seconds <= 9 -------------------------------*/
         if(minutes <= 9 && seconds<=9)
              $("#time").html('0'+ minutes + " : " + '0'+seconds); 
         if( minutes <= 9 && seconds>9)
@@ -352,14 +321,12 @@ var counter = setInterval(displayTimer, 1000);
      }
 
   
-   function displayListOfQuestions() /*--------------------------AI GRIJA LA FORMATARE-------------------------------*/
-  {
-  	 //$('#listOfQuestions').html("");
-  
+   function displayListOfQuestions() 
+  {  
         var output='<ul>';
         for(var j = 0; j< questions.length ; j++ )
              { 	
-             	output +='<li id="list" ><button class="buttons" id="' +j+'">Intrebarea'+(j+1)+'</button></li>';
+             	output +='<li id="list" ><button class="buttons" id="' + j + '">Intrebarea'+ ( j + 1) +'</button></li>';
              
               }
              output+="</ul>";
