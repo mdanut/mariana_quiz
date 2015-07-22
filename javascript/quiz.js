@@ -4,7 +4,7 @@
     choice:"multiple",
     question:" 1.Which is a reserved word in the Java programming language?",
     choices: ["method", "native","subclasses", "abstract","array"],
-    correctAnswer:[1,3],
+    correctAnswer:[3,1],
     points:[0,0.5,0,0.5,0],
     selections:[-1,-1,-1,-1,-1]
   }, {
